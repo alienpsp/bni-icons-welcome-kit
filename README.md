@@ -48,7 +48,9 @@ Copy an existing block, paste it after the last one, and put a **comma** between
     "slug": "jane-tan",
     "name": "Jane Tan",
     "company": "Tan & Co Accounting",
-    "classification": "Accounting",
+    "mainClassification": "Professional Services",
+    "subClassification": "Accounting",
+    "role": "Member",
     "photo": "assets/images/members/jane-tan.webp",
     "bniProfileUrl": "https://bnimalaysia.com/en-MY/memberdetails?encryptedMemberId=...",
     "localProfileUrl": "",
@@ -62,7 +64,9 @@ Copy an existing block, paste it after the last one, and put a **comma** between
 | `slug` | recommended | Short id, lower case with hyphens. Must be unique. |
 | `name` | **yes** | Entries without a name are skipped. |
 | `company` | no | Business name. |
-| `classification` | no | BNI classification. The dropdown is built from these automatically. Spell it the same way for members who share one. |
+| `mainClassification` | recommended | The BNI main classification group, e.g. `TED (Tech, E-Commerce, Digital)`. The **Classification** dropdown is built from these automatically and filters by them. Spell it exactly the same for every member in the same group. |
+| `subClassification` | recommended | The member's own (second-layer) classification, e.g. `Computer Hardware`, `Social Media Production`. Shown on the card under the main group and included in search. (An older `classification` field is still read as this.) |
+| `role` | recommended | `Member`, or a leadership role: `President`, `Vice President`, `Secretary/Treasurer`, `Secretary`, `Treasurer`, `Membership Committee`, `Visitor Host`, `Education Coordinator`, `Mentor Coordinator`, `Event Coordinator`, `Growth Coordinator`. Shown as a badge on the photo (red for leadership, grey for Member) and translated automatically. Any other role is shown exactly as written. Left out, it counts as `Member`. |
 | `photo` | no | Path to the photo. Leave `""` to show the default avatar. |
 | `bniProfileUrl` | no | The member's real BNI profile page. Copy it from the browser address bar on the BNI site. Never guess it. Opens in a new tab. |
 | `localProfileUrl` | no | A page in this site, e.g. `profile/jane-tan.html`. Used only when there is no BNI URL. |
@@ -83,6 +87,10 @@ One missing comma or quote breaks the whole list. Paste the file into https://js
 - curly quotes `“ ”` instead of straight quotes `" "`
 
 If the list ever fails to load, the page shows "The member list couldn't be loaded" and the browser console (F12) says why.
+
+### Languages
+
+The **EN / MY / CN** buttons switch the page text between English, Bahasa Melayu and Chinese. The choice is remembered on that device, and a link can open in a set language with `?lang=en`, `?lang=my` or `?lang=cn`. Member details (names, businesses, classifications, keywords) are shown exactly as written in `members.json` and are not translated. Role badges are the exception. Interface wording lives in the `STRINGS` table at the top of `assets/js/app.js`.
 
 ### Editing or removing a member
 
@@ -114,7 +122,10 @@ Then open http://localhost:8000/. Add `?sample=1` (http://localhost:8000/?sample
 **Search and filters** (use `?sample=1` for more than one member)
 - [ ] Typing filters instantly, with no reload, across name, business, classification and keywords.
 - [ ] Matching ignores case (`ai`, `AI`, `Ai` give the same result).
-- [ ] The classification dropdown starts on "All Classifications" and lists each classification once, A–Z.
+- [ ] The classification dropdown starts on "All Classifications" and lists each **main** classification once, A–Z. Choosing one shows every member in that group, whatever their second-layer classification.
+- [ ] Cards show the main classification (grey) above the member's own classification (red).
+- [ ] Leadership roles show a red badge on the photo; everyone else shows a grey "Member" badge. Searching "president" finds the President.
+- [ ] EN / MY / CN switches every label, button, placeholder, count and badge, and the choice survives a page refresh.
 - [ ] Search and classification work together, and changing either one keeps the other applied.
 - [ ] Sort switches between Name A–Z, Name Z–A and Business A–Z.
 - [ ] "Showing X of Y members" updates every time.
