@@ -16,8 +16,7 @@ It is plain HTML, CSS and JavaScript: no build step, no frameworks, no CDN, no t
 │       ├── default-avatar.svg    shown when a photo is missing or fails
 │       └── members/              member headshots
 ├── data/
-│   ├── members.json              ← the member list (the only file you edit)
-│   └── members.sample.json       sample data for testing only
+│   └── members.json              ← the member list (the only file you edit)
 └── profile/
     └── ryan.html                 member presentation pages (do not edit here)
 ```
@@ -66,7 +65,7 @@ Copy an existing block, paste it after the last one, and put a **comma** between
 | `company` | no | Business name. |
 | `mainClassification` | recommended | The BNI main classification group, e.g. `TED (Tech, E-Commerce, Digital)`. The **Classification** dropdown is built from these automatically and filters by them. Spell it exactly the same for every member in the same group. |
 | `subClassification` | recommended | The member's own (second-layer) classification, e.g. `Computer Hardware`, `Social Media Production`. Shown on the card under the main group and included in search. (An older `classification` field is still read as this.) |
-| `role` | recommended | `Member`, or a leadership role: `President`, `Vice President`, `Secretary/Treasurer`, `Secretary`, `Treasurer`, `Membership Committee`, `Visitor Host`, `Education Coordinator`, `Mentor Coordinator`, `Event Coordinator`, `Growth Coordinator`. Shown as a badge on the photo (red for leadership, grey for Member) and translated automatically. Any other role is shown exactly as written. Left out, it counts as `Member`. |
+| `role` | recommended | `Member`, or a leadership role: `President`, `Vice President`, `Secretary/Treasurer`, `Secretary`, `Treasurer`, `Membership Committee`, `Visitor Host`, `Education Coordinator`, `Mentor Coordinator`, `Event Coordinator`, `Growth Coordinator`. Shown as a badge on the photo exactly as written: red for any leadership role, grey for `Member`. Left out, it counts as `Member`. |
 | `photo` | no | Path to the photo. Leave `""` to show the default avatar. |
 | `bniProfileUrl` | no | The member's real BNI profile page. Copy it from the browser address bar on the BNI site. Never guess it. Opens in a new tab. |
 | `localProfileUrl` | no | A page in this site, e.g. `profile/jane-tan.html`. Used only when there is no BNI URL. |
@@ -90,7 +89,7 @@ If the list ever fails to load, the page shows "The member list couldn't be load
 
 ### Languages
 
-The **EN / MY / CN** buttons switch the page text between English, Bahasa Melayu and Chinese. The choice is remembered on that device, and a link can open in a set language with `?lang=en`, `?lang=my` or `?lang=cn`. Member details (names, businesses, classifications, keywords) are shown exactly as written in `members.json` and are not translated. Role badges are the exception. Interface wording lives in the `STRINGS` table at the top of `assets/js/app.js`.
+The **EN / BM / 中文** buttons switch the page text (introduction, filters, counts, messages, footer) between English, Bahasa Melayu and Simplified Chinese. The choice is remembered on that device, and a link can open in a set language with `?lang=en`, `?lang=bm` or `?lang=cn`. The member cards are never translated: names, businesses, classifications, role badges and the "View Profile" link stay exactly as written. Page wording lives in the `STRINGS` table at the top of `assets/js/app.js`.
 
 ### Editing or removing a member
 
@@ -106,47 +105,7 @@ Edit their block in `members.json`, or delete the whole block (including its `{ 
 python3 -m http.server 8000
 ```
 
-Then open http://localhost:8000/. Add `?sample=1` (http://localhost:8000/?sample=1) to load the sample members instead of the real list. They're marked "(sample)" and use example.com links only.
+Then open http://localhost:8000/.
 
----
+A test entry can carry `"sample": true`; its card then shows "(sample)" after the name so nobody mistakes it for a real member. Remove test entries before the site goes public.
 
-## Test checklist
-
-**Responsive layout**
-- [ ] Phone (≈375 px): one card per row, filters stacked, no sideways scrolling.
-- [ ] Large phone / small tablet (≥480 px): two cards per row.
-- [ ] Tablet (≈768 px): two per row; search, classification, sort and Clear filters on one line.
-- [ ] Laptop (≥960 px): three per row. Desktop (≥1200 px): four per row.
-- [ ] The filter bar sticks to the top while scrolling the list.
-
-**Search and filters** (use `?sample=1` for more than one member)
-- [ ] Typing filters instantly, with no reload, across name, business, classification and keywords.
-- [ ] Matching ignores case (`ai`, `AI`, `Ai` give the same result).
-- [ ] The classification dropdown starts on "All Classifications" and lists each **main** classification once, A–Z. Choosing one shows every member in that group, whatever their second-layer classification.
-- [ ] Cards show the main classification (grey) above the member's own classification (red).
-- [ ] Leadership roles show a red badge on the photo; everyone else shows a grey "Member" badge. Searching "president" finds the President.
-- [ ] EN / MY / CN switches every label, button, placeholder, count and badge, and the choice survives a page refresh.
-- [ ] Search and classification work together, and changing either one keeps the other applied.
-- [ ] Sort switches between Name A–Z, Name Z–A and Business A–Z.
-- [ ] "Showing X of Y members" updates every time.
-- [ ] Searching for nonsense shows "No members match your search"; "Show all members" and "Clear filters" both bring everyone back.
-
-**Profile navigation**
-- [ ] Clicking anywhere on a card opens the profile.
-- [ ] A card with a BNI URL says "View BNI Profile" and opens a new tab.
-- [ ] A card with only a local page says "View Profile" and opens in the same tab (e.g. `profile/ryan.html`).
-- [ ] A card with neither says "Profile coming soon" and isn't a link.
-- [ ] Tab moves through the search, dropdowns, button and every card with a visible red focus ring; Enter opens the focused card.
-
-**Photos**
-- [ ] Photos are square and aren't stretched.
-- [ ] A member with `"photo": ""` shows the default avatar.
-- [ ] A wrong photo path shows the default avatar, never a broken-image icon (sample member B tests this).
-- [ ] Photos further down the page load only as you scroll (lazy loading).
-
-**GitHub Pages deployment**
-- [ ] `CNAME` still contains `icons.funnel135.com`.
-- [ ] Settings → Pages: source is `main` / root, custom domain is `icons.funnel135.com`, **Enforce HTTPS** is ticked.
-- [ ] https://icons.funnel135.com/ loads the directory and https://icons.funnel135.com/profile/ryan.html still works.
-- [ ] After editing `members.json`, the change appears within a few minutes (hard-refresh with Ctrl+Shift+R if not).
-- [ ] The browser console (F12) shows no errors.

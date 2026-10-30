@@ -1,16 +1,4 @@
 <!doctype html>
-<!--
-  Funnel135 · BNI "My Business" embed. Single self-contained file: CSS, JS and fonts are all inline.
-
-  Paste into the BNI profile's "My Business" field, replacing the src with this page's GitHub Pages URL:
-
-  <iframe src="https://USERNAME.github.io/REPO/" width="100%" height="1000" scrolling="no" title="Funnel135 - My Business" style="border:0;width:100%;display:block;overflow:hidden" onload="var f=this,h=0,q=0,s=function(){f.style.setProperty('max-height','none','important');if(h)f.style.setProperty('height',h+'px','important')},v=function(){if(q)return;q=1;requestAnimationFrame(function(){q=0;f.contentWindow.postMessage({f135View:{top:f.getBoundingClientRect().top,vh:window.innerHeight}},'*')})};s();if(!f.r){f.r=1;window.addEventListener('message',function(e){if(e.source===f.contentWindow&&e.data&&e.data.f135Height){h=e.data.f135Height;s();v()}});window.addEventListener('scroll',v,{passive:true});window.addEventListener('resize',function(){setTimeout(s,100);v()})}f.contentWindow.postMessage('f135-height','*');v()"></iframe>
-
-  The onload script sizes the frame to the page (f135-height / f135Height) and forwards the host's
-  scroll position (f135View) so the eyebrow rules can scrub. Messages are only accepted from this
-  frame (e.source), so no domain is hard-coded. Without the script the page falls back to a plain paragraph.
-  Add ?lang=zh to the src to open in Chinese.
--->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -46,10 +34,6 @@
   .fb__in { padding: clamp(28px, 5vw, 60px) clamp(20px, 5vw, 60px); position: relative; }
   .fb section + section { border-top: 1px solid var(--c-line); }
 
-  /* Section eyebrow: numeral + label + rule (mirrors base/_typography.scss).
-     The rule is scrubbed from scroll position: 0.45 wide as the eyebrow enters
-     from the bottom, 1 by the time it reaches 45% up the screen, reversing on
-     the way back up. Falls back to fully drawn without JS. */
   .eyebrow { display: flex; align-items: center; gap: 15px; margin: 0 0 20px; font-size: 12px; font-weight: 600; line-height: 1.2;
     letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
   .eyebrow::after { content: ""; flex: 1; height: 1.5px; max-width: 120px; background: var(--amber); transform-origin: left;
@@ -414,12 +398,7 @@
   }, 260);
 })();
 
-/* Eyebrow rule: scrubbed off scroll position, not looped (mirrors initEyebrow
-   in static/js/main.js). The frame is sized to its content, so it never
-   scrolls itself: the host page's onload script forwards the frame's position
-   as { f135View: { top, vh } } and that stands in for our own scroll.
-   Opened on its own, it reads its own scroll. Until either arrives the rules
-   stay fully drawn. */
+
 (function () {
   var rules = Array.prototype.slice.call(document.querySelectorAll('.eyebrow'));
   if (!rules.length || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
@@ -451,9 +430,7 @@
   }
 })();
 
-/* Auto-height handshake with the host page, plus a compact fallback.
-   In a frame: show the plain paragraph until the host answers 'f135-height'
-   and makes the frame tall enough. On its own: always the full design. */
+
 (function () {
   var root = document.documentElement, fb = document.getElementById('fb'), last = 0, shook = false,
       inFrame = (function () { try { return window.self !== window.top; } catch (e) { return true; } })();
