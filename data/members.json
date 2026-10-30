@@ -8,5 +8,43 @@
     "bniProfileUrl": "",
     "localProfileUrl": "profile/ryan.html",
     "keywords": ["AI", "Automation", "SME", "Web App", "Workflow", "Landing Page", "Digital Transformation"]
+  },
+  {
+    "slug": "sample-accountant",
+    "name": "Sample Member A",
+    "company": "Sample Accounting (not a real member)",
+    "classification": "Accounting",
+    "photo": "",
+    "bniProfileUrl": "https://example.com/",
+    "localProfileUrl": "",
+    "keywords": ["Tax", "Bookkeeping", "Payroll"],
+    "sample": true
+  },
+  {
+    "slug": "sample-designer",
+    "name": "Sample Member B",
+    "company": "Sample Studio (not a real member)",
+    "classification": "Graphic Design",
+    "photo": "assets/images/members/does-not-exist.webp",
+    "bniProfileUrl": "",
+    "localProfileUrl": "",
+    "keywords": ["Branding", "Logo", "Packaging"],
+    "sample": true
+  },
+  {
+    "slug": "sample-lawyer",
+    "name": "Sample Member C",
+    "company": "Sample Legal (not a real member)",
+    "classification": "Corporate Law",
+    "photo": "",
+    "bniProfileUrl": "",
+    "localProfileUrl": "profile/ryan.html",
+    "keywords": ["Contracts", "Company Secretary"],
+    "sample": true
+  },
+  {
+    "slug": "sample-broken",
+    "company": "This entry has no name and is skipped on purpose",
+    "sample": true
   }
 ]
