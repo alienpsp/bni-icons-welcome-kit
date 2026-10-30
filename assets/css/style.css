@@ -32,7 +32,9 @@
   --c-red-tint: rgba(200, 16, 46, .07);
 
   /* Type */
-  --font-sans: 'General Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* General Sans has no Chinese glyphs; the CJK system fonts carry those. */
+  --font-sans: 'General Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+               'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --fs-2xs: 12px;
   --fs-sm: 14px;
@@ -113,12 +115,42 @@ h1, h2, h3, p { margin: 0; }
   padding: clamp(56px, 11vw, 150px) 0 clamp(38px, 6vw, 63px);
   border-bottom: 1px solid var(--c-line);
 }
-.intro .eyebrow { margin-bottom: clamp(var(--s-3), 3vw, var(--s-6)); }
-.intro__title {
-  font-weight: 300;
-  font-size: clamp(56px, 13vw, 160px);
-  line-height: .96;
-  letter-spacing: -.035em;
+.intro__inner { position: relative; }
+.intro .eyebrow { margin-bottom: clamp(var(--s-3), 3vw, var(--s-6)); padding-right: 150px; }
+
+/* Language switcher: same control as profile/ryan.html */
+.lang {
+  position: absolute; right: var(--gutter); top: -40px; z-index: 3;
+  display: inline-flex; padding: 3px;
+  border: 1px solid var(--c-line); border-radius: var(--r-pill);
+  background: var(--c-raised);
+}
+.lang button {
+  font: 500 12px/1 var(--font-sans); letter-spacing: .05em;
+  border: 0; background: none; color: var(--c-fg-muted);
+  padding: 8px 14px; border-radius: var(--r-pill); cursor: pointer;
+  transition: color var(--d-fast) var(--e-out), background var(--d-fast) var(--e-out);
+}
+.lang button:hover { color: var(--c-fg); }
+.lang button[aria-pressed='true'] { background: var(--c-fg); color: var(--c-bg); }
+.lang button:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
+/* Two fixed lines: the Chinese chapter name, then the English name at subtitle size.
+   Each line is held on one row; the Chinese size is capped so six characters fit a phone. */
+.intro__title { font-weight: 300; }
+.intro__title-zh,
+.intro__title-en { display: block; white-space: nowrap; }
+.intro__title-zh {
+  font-size: clamp(40px, 11vw, 128px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: .02em;
+}
+.intro__title-en {
+  margin-top: clamp(4px, 1vw, 12px);
+  font-size: clamp(25px, 3.6vw, 47px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -.02em;
 }
 .intro__subtitle {
   margin-top: var(--s-2);
@@ -255,6 +287,7 @@ a.card:hover::after, a.card:focus-visible::after { transform: scaleX(1); }
 a.card:focus-visible { outline: 2px solid var(--c-red); outline-offset: 3px; }
 
 .card__media {
+  position: relative;
   aspect-ratio: 1 / 1;
   background: var(--c-sunk);
   overflow: hidden;
@@ -266,9 +299,35 @@ a.card:focus-visible { outline: 2px solid var(--c-red); outline-offset: 3px; }
 }
 a.card:hover .card__img { transform: scale(1.03); }
 
+/* Role badge: committee roles in red, regular members neutral. */
+.badge {
+  position: absolute; left: var(--s-1); top: var(--s-1);
+  max-width: calc(100% - 2 * var(--s-1));
+  padding: 6px 11px;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, .9);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--c-line);
+  font-size: 11px; font-weight: 600; letter-spacing: .06em; line-height: 1.2;
+  text-transform: uppercase; color: var(--c-fg-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.badge--committee {
+  background: var(--c-red); border-color: var(--c-red); color: #fff;
+  box-shadow: 0 6px 16px -8px rgba(200, 16, 46, .7);
+}
+
 .card__body {
   display: flex; flex-direction: column; flex: 1;
   padding: var(--s-3) var(--s-3) var(--s-4);
+}
+/* Two classification layers: the main group, then the member's own classification. */
+.card__main-class {
+  font-size: 11px; font-weight: 500; letter-spacing: .06em;
+  text-transform: uppercase; line-height: 1.35;
+  color: var(--c-fg-dim);
+  margin-bottom: 4px;
 }
 .card__class {
   font-size: var(--fs-2xs); font-weight: 600; letter-spacing: .08em;
