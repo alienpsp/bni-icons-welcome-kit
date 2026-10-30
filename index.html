@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BNI ICONS · Member Business Directory</title>
+  <meta name="description" content="Find trusted professionals in the BNI ICONS chapter. Search members by name, business, classification or expertise and connect with the right person for your next referral.">
+  <link rel="canonical" href="https://icons.funnel135.com/">
+  <meta name="theme-color" content="#f6f4f1">
+  <meta name="color-scheme" content="light">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BNI ICONS · Member Business Directory">
+  <meta property="og:description" content="Find trusted professionals in the BNI ICONS chapter and build business connections that last.">
+  <meta property="og:url" content="https://icons.funnel135.com/">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c8102e'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='16' font-weight='700' text-anchor='middle' fill='%23fff'%3EI%3C/text%3E%3C/svg%3E">
+  <link rel="preload" href="assets/fonts/general-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/general-sans-light.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#directory">Skip to member directory</a>
+
+  <header class="intro">
+    <div class="container">
+      <p class="eyebrow"><span class="eyebrow__index">Chapter</span><span>Business referral network</span></p>
+      <h1 class="intro__title">BNI ICONS</h1>
+      <p class="intro__subtitle">Member Business Directory</p>
+      <p class="intro__lede">
+        Find trusted professionals from our chapter, get to know what each member does,
+        and connect with the right person for your next referral or business conversation.
+      </p>
+      <p class="intro__stats" id="stats" hidden></p>
+    </div>
+  </header>
+
+  <main id="directory" tabindex="-1">
+    <section class="filters" aria-label="Search and filter members">
+      <div class="container">
+        <form class="filters__form" id="filters" role="search" novalidate>
+          <div class="field field--search">
+            <label class="field__label" for="search">Search</label>
+            <input class="field__input" id="search" name="q" type="search" autocomplete="off" spellcheck="false"
+                   placeholder="Search by name, business or expertise...">
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="classification">Classification</label>
+            <select class="field__input field__select" id="classification" name="classification">
+              <option value="">All Classifications</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="sort">Sort by</label>
+            <select class="field__input field__select" id="sort" name="sort">
+              <option value="name-asc">Name (A–Z)</option>
+              <option value="name-desc">Name (Z–A)</option>
+              <option value="company-asc">Business (A–Z)</option>
+            </select>
+          </div>
+
+          <button class="btn btn--ghost filters__reset" id="reset" type="reset">Clear filters</button>
+        </form>
+
+        <p class="filters__count" id="count" role="status" aria-live="polite">Loading members…</p>
+      </div>
+    </section>
+
+    <section class="results" aria-label="Members">
+      <div class="container">
+        <ul class="grid" id="grid" aria-busy="true"></ul>
+
+        <div class="empty" id="empty" hidden>
+          <h2 class="empty__title">No members match your search</h2>
+          <p class="empty__text">Try a different name or keyword, or show every classification.</p>
+          <button class="btn btn--solid" id="empty-reset" type="button">Show all members</button>
+        </div>
+
+        <div class="empty" id="error" hidden>
+          <h2 class="empty__title">The member list couldn't be loaded</h2>
+          <p class="empty__text">Please refresh the page. If the problem continues, let the chapter administrator know.</p>
+        </div>
+
+        <noscript>
+          <div class="empty">
+            <h2 class="empty__title">JavaScript is needed for the directory</h2>
+            <p class="empty__text">Please enable JavaScript to search and browse chapter members.</p>
+          </div>
+        </noscript>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>BNI ICONS · Member Business Directory</p>
+      <p class="footer__note">A chapter-maintained directory. Member details are provided by each member.</p>
+    </div>
+  </footer>
+</body>
+</html>
